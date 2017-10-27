@@ -1,6 +1,7 @@
 
 library(shiny)
 library(ggplot2)
+library(DT)
 
 function(input,output) {
     data2 <- reactive({
@@ -20,26 +21,26 @@ function(input,output) {
         stat_summary(fun.y="mean", geom="bar")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     })
-    
+
     output$n_graph2 <- renderPlot({
-        ggplot(data2(),aes(x=show_company_name)) + 
-        geom_bar() + 
+        ggplot(data2(),aes(x=show_company_name)) +
+        geom_bar() +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     })
-        
+
 #     Graphs for Media Company
     output$hist_graph <- renderPlot({
         ggplot(data2(),aes(x=show_company_name, y=show_rating))+
         stat_summary(fun.y="mean", geom="bar")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     })
-    
+
     output$n_graph <- renderPlot({
-        ggplot(data2(),aes(x=show_company_name)) + 
-        geom_bar() + 
+        ggplot(data2(),aes(x=show_company_name)) +
+        geom_bar() +
         theme(axis.text.x = element_text(angle = 90, hjust = 1))
     })
-    
+
     output$table <- DT::renderDataTable(DT::datatable(data2()))
-    
+
     }
